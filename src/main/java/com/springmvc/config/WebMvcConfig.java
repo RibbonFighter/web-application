@@ -1,0 +1,57 @@
+package com.springmvc.config;
+
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = {"com.springmvc.*"})
+public class WebMvcConfig implements WebMvcConfigurer{
+	
+	@Bean
+	public InternalResourceViewResolver resolver() {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setViewClass(JstlView.class);
+		resolver.setPrefix("/WEB-INF/views/");
+		resolver.setSuffix(".jsp");
+		return resolver;
+	}
+	
+	// Cấu hình để Upload.
+	   @Bean(name = "multipartResolver")
+	   public CommonsMultipartResolver multipartResolver() {
+	       CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+	       
+	       // Set Max Size...
+	       // commonsMultipartResolver.setMaxUploadSize(...);
+	       
+	       return commonsMultipartResolver;
+	   }
+	   
+	 //khai bao error code de doc error message
+		@Bean
+		public MessageSource messageSource() {
+			ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+			messageSource.setBasename("classpath:messages/validate");
+			messageSource.setDefaultEncoding("UTF-8");
+			return messageSource;
+		}
+		
+		@Bean
+		public LocalValidatorFactoryBean getValidator()
+		{
+			LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
+			localValidatorFactoryBean.setValidationMessageSource(messageSource());
+			return localValidatorFactoryBean;
+		}
+
+}
