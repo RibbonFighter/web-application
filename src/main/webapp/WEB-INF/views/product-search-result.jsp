@@ -24,11 +24,6 @@
 	<fmt:setLocale value="en_US" scope="session" />
 
 	<div class="page_title">Product List</div>
-	
-	<form method="get" action="search">
-			<input type="text" name="keyword" /> <input type="submit"
-				value="Search" />
-	</form>
 
 	<c:forEach items="${paginationProductInfos.list }" var="productInfo">
 		<div class="product-preview-container">
@@ -44,9 +39,9 @@
 				<li><a
 					href="${contextPath }/buyProduct?code=${productInfo.code}">Buy
 						Now</a></li>
-				<!-- For manager edit & delete product -->
+				<!-- For manager edit product -->
 				<security:authorize access="hasRole('ROLE_MANAGER')">
-					<li><a style="color: blue"
+					<li><a style="color: red"
 						href="${contextPath }/product?code=${productInfo.code}">Edit Product</a>
 					</li>
 					<li><a style="color: red"

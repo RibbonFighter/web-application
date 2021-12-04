@@ -58,7 +58,7 @@
 			<div class="product-preview-container">
 				<ul>
 					<li><img class="product-image"
-						src="${cartLineInfo.productInfo.code }" /></li>
+						src="${contextPath }/productImage?code=${cartLineInfo.productInfo.code }" /></li>
 					<li>Code: ${cartLineInfo.productInfo.code } <input
 						type="hidden" name="code"
 						value="${cartLineInfo.productInfo.code }" />

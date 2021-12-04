@@ -1,6 +1,7 @@
 package com.springmvc.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.dao.OrderDAO;
 import com.springmvc.dao.ProductDao;
@@ -217,6 +219,16 @@ public class MainController {
 			return "redirect:/shoppingCart";
 		}
 		return "shoppingCartFinalize";
+	}
+	
+	@RequestMapping("/search")
+	public ModelAndView search(@RequestParam String keyword) {
+		ModelAndView mav = new ModelAndView("product-search-result");
+
+		List<Products> result = productDAO.search(keyword);
+		mav.addObject("result", result);
+
+		return mav;
 	}
 
 }

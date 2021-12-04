@@ -2,12 +2,18 @@ html {
 	background: white;
 }
 
+*{
+	
+}
+
 h3 {
 	margin: 0px;
 	padding: 0px;
 }
 
 body {
+	font-family: sans-serif;
+	font-weight:400;
 	max-width: 860px;
 	min-width: 360px;
 	margin: 0px auto;
@@ -22,6 +28,7 @@ body {
 	margin: 10px 0px;
 }
 
+<!-- header part 
 .header-container {
 	text-align: left;
 	border-bottom: 1px solid #ccc;
@@ -41,12 +48,71 @@ body {
 	font-size: bold;
 }
 
+<!-- footer part 
 .footer-container {
+	background-color: #fff;
 	text-align: center;
 	margin-top: 10px;
 	padding: 5px 0px 0px 0px;
 	border-top: 1px solid #ccc;
 }
+
+.footer-container .social {
+ text-align: center;
+ padding-bottom: 25px;
+ color: #4b4c4d;
+}
+
+.footer-container .social a {
+	font-size: 24px;
+	color: inherit;
+	border: 1px solid #ccc;
+	width: 40px; 
+	height: 40px;
+	line-height: 38px;
+	display: inline-block;
+	text-align: center;
+	border-radius: 50%;
+	margin: 0 8px;
+	opacity: 0.75;
+}
+
+.footer-container .social a:hover {
+ opacity: 0.9;
+}
+
+.footer-container ul{
+	margin-top: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 18px;
+	line-height: 1.6;
+	margin-bottom: 0;
+}
+
+.footer-container ul li a {
+	color: inherit;
+	text-decoration: none;
+	opacity: 0.8;
+}
+
+.footer ul li {
+	display: inline-block;
+	padding: 0 15px;
+}
+
+.footer ul li a:hover {
+	opacity: 1;
+}
+
+.footer .copyright {
+	margin-top: 15px;
+	text-align: center;
+	font-size: 19px;
+	color: #aaa;
+}
+
+
 
 .menu-container {
 	text-align: right;

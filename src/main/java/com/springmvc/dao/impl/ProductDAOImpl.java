@@ -22,6 +22,9 @@ public class ProductDAOImpl implements ProductDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private ProductDao productDAO;
 
 	@Override
 	public PaginationResult<ProductInfo> getAllProductInfos(int page, int maxResult, int maxNavigationPage,
@@ -105,6 +108,27 @@ public class ProductDAOImpl implements ProductDao {
 		}
 		//neu co loi tai db, ngoai le se nem ra ngay lap tap
 		session.flush();
+	}
+
+	@Override
+	public boolean deleteProductByCode(String code) {
+		try {
+			Session session = sessionFactory.getCurrentSession();	
+			String hql = "DELETE FROM Products PRO WHERE PRO.code = :code";
+			Query query = session.createQuery(hql);
+			query.setParameter("CODE", code);
+			query.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+	}
+
+	@Override
+	public List<Products> search(String keyword) {
+		// TODO Auto-generated method stub
+		return productDAO.search(keyword);
 	}
 
 }
