@@ -73,5 +73,10 @@ public class Accounts implements Serializable{
 		this.userRole = userRole;
 	}
 	
+	@Override
+	public String toString() {
+		return this.userRole;
+	}
+
 	
 }

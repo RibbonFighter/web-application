@@ -1,6 +1,7 @@
 package com.springmvc.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.dao.OrderDAO;
 import com.springmvc.dao.ProductDao;
+import com.springmvc.entity.User;
 import com.springmvc.models.OrderDetailInfo;
 import com.springmvc.models.OrderInfo;
 import com.springmvc.models.PaginationResult;
@@ -125,5 +128,61 @@ public class AdminController {
 	
 	
 	
+	/*
+	@RequestMapping("/list")
+	public ModelAndView home() {
+		ModelAndView mav = new ModelAndView("users-list");
+		List<User> listUser = userServiceImpl.getAllUsers();
+		mav.addObject("listUser", listUser);
+		return mav;
+	}
 	
+	// go to create a new user
+		@RequestMapping("/new")
+		public String addNewUserForm(Map<String, Object> model) {
+			model.put("user", new User());
+			
+			return "add-new-user-form";
+		}
+
+		// inserting and updating a new user method
+		@RequestMapping(value = "/insert", method = RequestMethod.POST)
+		public String insertUser(@ModelAttribute("user") User user) {
+			userServiceImpl.saveUserWithDefaultRole(user);
+
+			return "redirect:/user/list";
+		}
+
+		// go to editing form and edting a user
+		@RequestMapping("/edit")
+		public ModelAndView editUserForm(@RequestParam long user_id, Model model) {
+			// @ParamVariable("user_id") Long user_id
+			ModelAndView mav = new ModelAndView("edit-user-form");
+
+			User user = userServiceImpl.getUserById(user_id);
+			List<Role> listRoles = userServiceImpl.getRoles();
+
+			mav.addObject("user", user);
+			model.addAttribute("listRoles", listRoles);
+
+			return mav;
+		}
+
+		@RequestMapping("/delete")
+		public String deleteUserById(@RequestParam long user_id) {
+			userServiceImpl.deleteUserById(user_id);
+
+			return "redirect:/user/list";
+		}
+
+		@RequestMapping("/search")
+		public ModelAndView search(@RequestParam String keyword) {// lay dung ten name ben jsp moi chay
+			ModelAndView mav = new ModelAndView("search-users");
+			List<User> result = userServiceImpl.search(keyword);
+			mav.addObject("result", result);
+
+			return mav;
+		}
+	
+	*/
 }

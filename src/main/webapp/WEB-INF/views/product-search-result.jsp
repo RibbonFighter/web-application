@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Poster</title>
+<title>Search Result</title>
 <style type="text/css">
 <%@include file ="css/styles.css"%>
 </style>
@@ -25,7 +25,7 @@
 
 	<div class="page_title">Product List</div>
 
-	<c:forEach items="${paginationProductInfos.list }" var="productInfo">
+	<c:forEach items="${result }" var="productInfo">
 		<div class="product-preview-container">
 			<ul>
 				<li><img class="product-image"
@@ -39,7 +39,7 @@
 				<li><a
 					href="${contextPath }/buyProduct?code=${productInfo.code}">Buy
 						Now</a></li>
-				<!-- For manager edit product -->
+				<!-- For manager delete edit product -->
 				<security:authorize access="hasRole('ROLE_MANAGER')">
 					<li><a style="color: red"
 						href="${contextPath }/product?code=${productInfo.code}">Edit Product</a>

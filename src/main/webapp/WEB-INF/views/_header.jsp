@@ -15,8 +15,7 @@
 </head>
 <body>
 	<div class="header-container">
-	<img src="">
-		<div class="site-name">Online Shop</div>
+		<div class="site-name">Ribbon Online Shop</div>
 		<div class="header-bar">
 			<c:if test="${name != null }">
 			Hello <a href="${contextPath }/accountInfo">${name }</a>

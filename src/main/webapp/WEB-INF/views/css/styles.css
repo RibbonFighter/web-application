@@ -2,18 +2,12 @@ html {
 	background: white;
 }
 
-*{
-	
-}
-
 h3 {
 	margin: 0px;
 	padding: 0px;
 }
 
 body {
-	font-family: sans-serif;
-	font-weight:400;
 	max-width: 860px;
 	min-width: 360px;
 	margin: 0px auto;
@@ -28,7 +22,6 @@ body {
 	margin: 10px 0px;
 }
 
-<!-- header part 
 .header-container {
 	text-align: left;
 	border-bottom: 1px solid #ccc;
@@ -48,7 +41,13 @@ body {
 	font-size: bold;
 }
 
-<!-- footer part 
+.footer-container {
+	text-align: center;
+	margin-top: 10px;
+	padding: 5px 0px 0px 0px;
+	border-top: 1px solid #ccc;
+}
+
 .footer-container {
 	background-color: #fff;
 	text-align: center;
@@ -63,7 +62,7 @@ body {
  color: #4b4c4d;
 }
 
-.footer-container .social a {
+.footer-container .social {
 	font-size: 24px;
 	color: inherit;
 	border: 1px solid #ccc;
@@ -111,8 +110,6 @@ body {
 	font-size: 19px;
 	color: #aaa;
 }
-
-
 
 .menu-container {
 	text-align: right;
@@ -207,6 +204,10 @@ ul {
 	color: red;
 	font-weight: bold;
 	font-size: 120%;
+}
+
+table td {
+	padding: 5px;
 }
 
 table td {

@@ -2,6 +2,8 @@ package com.springmvc.dao.impl;
 
 
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -20,6 +22,9 @@ public class AccountDAOImpl implements AccountDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@Autowired
+	private AccountDAO accountDAO;
+	
 	@Override
 	public Accounts getAccountByUsername(String userName) {
 		// TODO Auto-generated method stub
@@ -29,6 +34,12 @@ public class AccountDAOImpl implements AccountDAO{
 		query.setParameter("USERNAME", userName);
 		Accounts account = (Accounts) query.uniqueResult();
 		return account;
+	}
+
+	@Override
+	public List<Accounts> search(String keyword) {
+		// TODO Auto-generated method stub
+		return accountDAO.search(keyword);
 	}
 
 }

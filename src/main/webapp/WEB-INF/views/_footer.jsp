@@ -26,7 +26,7 @@
 				<a href="${contextPath }/">Home</a>
 			</li>
 			<li>
-				<a href="#">Services</a>${contextPath }/
+				<a href="#">Services</a>
 			</li>
 			<li>
 				<a href="#">About</a>

@@ -22,10 +22,12 @@
 		<a href="${contextPath }/shoppingCart">My Cart</a> |
 		<security:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
 			<a href="${contextPath }/orderList">Order List</a> |
+			<a href="${contextPath }/userList">User List</a> |
 		</security:authorize>
 		
 		<security:authorize access="hasRole('ROLE_MANAGER')">
-			<a href="${contextPath }/product">Create Product</a>
+			<a href="${contextPath }/product">Create Product</a> |
+			<a href="${contextPath }/user">Create User</a>
 		</security:authorize>
 	</div>
 </body>
