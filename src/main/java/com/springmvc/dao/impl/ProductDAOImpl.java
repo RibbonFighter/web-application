@@ -125,10 +125,4 @@ public class ProductDAOImpl implements ProductDao {
 		return false;
 	}
 
-	@Override
-	public List<Products> search(String keyword) {
-		// TODO Auto-generated method stub
-		return productDAO.search(keyword);
-	}
-
 }

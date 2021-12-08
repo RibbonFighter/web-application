@@ -13,22 +13,29 @@
 <style type="text/css">
 <%@include file ="css/styles.css"%>
 </style>
-
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="menu-container">
-		<a href="${contextPath }/">Home</a> |
-		<a href="${contextPath }/productList">Product List</a> |
-		<a href="${contextPath }/shoppingCart">My Cart</a> |
+	<nav>
+	<input type="checkbox" id="check">
+	<label for="check" class="checkbtn">
+		<i class="fas fa=bars"></i>
+	</label>
+	<ul>
+		<li><a class="home" href="${contextPath }/">Home</a> | </li>
+		<li><a href="${contextPath }/productList">Product List</a> | </li>
+		
 		<security:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
-			<a href="${contextPath }/orderList">Order List</a> |
-			<a href="${contextPath }/userList">User List</a> |
+			<li><a href="${contextPath }/orderList">Order List</a></li> |
+			<li><a href="${contextPath }/listAccounts">Accounts List</a></li> | 
 		</security:authorize>
 		
-		<security:authorize access="hasRole('ROLE_MANAGER')">
-			<a href="${contextPath }/product">Create Product</a> |
-			<a href="${contextPath }/user">Create User</a>
+		<li><a href="${contextPath }/shoppingCart">My Cart</a></li> |
+		<security:authorize access="hasRole('ROLE_MANAGER')"> 
+			<li><a href="${contextPath }/product">Create Product</a></li> |
+			<li><a href="${contextPath }/account">Create User</a> </li>
 		</security:authorize>
-	</div>
+		</ul>
+	</nav>
 </body>
 </html>

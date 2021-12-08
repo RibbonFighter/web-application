@@ -36,10 +36,5 @@ public class AccountDAOImpl implements AccountDAO{
 		return account;
 	}
 
-	@Override
-	public List<Accounts> search(String keyword) {
-		// TODO Auto-generated method stub
-		return accountDAO.search(keyword);
-	}
 
 }

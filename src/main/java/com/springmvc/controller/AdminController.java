@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,11 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.dao.OrderDAO;
 import com.springmvc.dao.ProductDao;
-import com.springmvc.entity.User;
+import com.springmvc.entity.Accounts;
 import com.springmvc.models.OrderDetailInfo;
 import com.springmvc.models.OrderInfo;
 import com.springmvc.models.PaginationResult;
 import com.springmvc.models.ProductInfo;
+import com.springmvc.service.AccountsServiceImpl;
+import com.springmvc.validator.AccountsInfoValidator;
 import com.springmvc.validator.ProductInfoValidator;
 
 @Controller
@@ -35,7 +38,12 @@ public class AdminController {
 	private ProductDao productDAO;
 	
 	@Autowired
+	private AccountsServiceImpl accountServImpl;
+	
+	@Autowired
 	private ProductInfoValidator productInfoValidator;
+	private AccountsInfoValidator accountInfoValidator;
+	
 	
 	@RequestMapping("/403")
 	public String accessDenied() {
@@ -126,33 +134,41 @@ public class AdminController {
 		return "redirect://productList";
 	}
 	
+	//get DELETE PRODUCT
+	@GetMapping("/delete")
+	public String deleteProduct(@RequestParam("code") String code) {
+		productDAO.deleteProductByCode(code);
+		return "redirect://productList";
+	}
 	
 	
-	/*
-	@RequestMapping("/list")
-	public ModelAndView home() {
-		ModelAndView mav = new ModelAndView("users-list");
-		List<User> listUser = userServiceImpl.getAllUsers();
-		mav.addObject("listUser", listUser);
+	
+	
+	@RequestMapping("/accountsList")
+	public ModelAndView accountsList() {
+		ModelAndView mav = new ModelAndView("accountsList");
+		List<Accounts> listAccounts = accountServImpl.getAllAccounts();
+		mav.addObject("listAccounts", listAccounts);
 		return mav;
 	}
 	
 	// go to create a new user
-		@RequestMapping("/new")
-		public String addNewUserForm(Map<String, Object> model) {
-			model.put("user", new User());
+		@RequestMapping("/account")
+		public String addNewAccountsForm(Map<String, Object> model) {
+			model.put("account", new Accounts());
 			
 			return "add-new-user-form";
 		}
 
 		// inserting and updating a new user method
 		@RequestMapping(value = "/insert", method = RequestMethod.POST)
-		public String insertUser(@ModelAttribute("user") User user) {
-			userServiceImpl.saveUserWithDefaultRole(user);
+		public String insertUser(@ModelAttribute("accounts") Accounts accounts) {
+			accountServImpl.saveAccounts(accounts);
 
-			return "redirect:/user/list";
+			return "redirect:/accounts/accountsList";
 		}
 
+		/*
 		// go to editing form and edting a user
 		@RequestMapping("/edit")
 		public ModelAndView editUserForm(@RequestParam long user_id, Model model) {

@@ -50,7 +50,7 @@
 						href="${contextPath }/product?code=${productInfo.code}">Edit Product</a>
 					</li>
 					<li><a style="color: red"
-						href="${contextPath }/product?code=${productInfo.code}">Delete</a>
+						href="${contextPath }/delete?code=${productInfo.code}">Delete</a>
 					</li>
 				</security:authorize>
 

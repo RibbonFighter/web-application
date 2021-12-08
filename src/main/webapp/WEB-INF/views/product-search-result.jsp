@@ -23,7 +23,7 @@
 
 	<fmt:setLocale value="en_US" scope="session" />
 
-	<div class="page_title">Product List</div>
+	<div class="page_title">Search Product Result</div>
 
 	<c:forEach items="${result }" var="productInfo">
 		<div class="product-preview-container">

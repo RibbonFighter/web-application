@@ -39,8 +39,8 @@
 					<td style="visibility: hidden;">${account.password }</td>
 					<td>${account.enabled }</td>
 					<td>${account.userRole }</td>
-					<td><a href="edit?user_id=${account.userName }">Edit</a>
-						&nbsp;&nbsp;&nbsp; <a href="delete?user_id=${account.userName }">Delete</a>
+					<td><a href="edit?userName=${account.userName }">Edit</a>
+						&nbsp;&nbsp;&nbsp; <a href="delete?userName=${account.userName }">Delete</a>
 					</td>
 				</tr>
 			</c:forEach>
