@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "account")
 public class Accounts implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -24,12 +24,12 @@ public class Accounts implements Serializable{
 	private String password;
 	
 	@Column(name = "enabled", length = 1, nullable = false)
-	private String enabled;
+	private boolean enabled;
 	
 	@Column(name = "user_Role", length = 20, nullable = false)
 	private String userRole;
 
-	public Accounts(String userName, String password, String enabled, String userRole) {
+	public Accounts(String userName, String password, boolean enabled, String userRole) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -57,11 +57,11 @@ public class Accounts implements Serializable{
 		this.password = password;
 	}
 
-	public String getEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(String enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
@@ -72,11 +72,8 @@ public class Accounts implements Serializable{
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
+
 	
-	@Override
-	public String toString() {
-		return this.userRole;
-	}
 
 	
 }

@@ -9,11 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -29,13 +27,6 @@ public class AppContext {
 	@Autowired
 	public Environment environment;
 	
-	// máº·c Ä‘á»‹nh Spring Data JPA sáº½ tÃ¬m LocalContainerEntityManagerFactoryBean cÃ³ tÃªn
-		// lÃ  "entityManagerFactory" Ä‘á»ƒ @Autowired
-		// -->trong trÆ°á»�ng há»£p nÃ y Ä‘ang táº¡o Spring BEAN tÃªn lÃ  entityManagerFactoryBean
-		// -->ko tÃ¬m tháº¥y
-		// muá»‘n Ä‘á»•i tÃªn máº·c Ä‘á»‹nh Ä‘c tÃ¬m kiáº¿m thÃ¬ khai bÃ¡o
-		// entityManagerFactoryRef="entityManagerFactoryBean"
-	/*
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory()
 	{
@@ -46,7 +37,6 @@ public class AppContext {
 		entityManagerFactoryBean.setJpaProperties(hibernateProperties());
 		return entityManagerFactoryBean;
 	}
-	*/
 	
 	  @Bean //se tao ra 1 spring bean mang ten sessionfactoruy trong spring ioc container
 	  public LocalSessionFactoryBean sessionFactory() 

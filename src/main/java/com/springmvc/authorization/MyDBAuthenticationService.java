@@ -24,15 +24,15 @@ public class MyDBAuthenticationService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		Accounts account = accountDAO.getAccountByUsername(username);
-		System.out.println("Account = " + account);
+		Accounts accounts = accountDAO.getAccountByUsername(username);
+		System.out.println("Account = " + accounts);
 		
-		if (account == null) {
+		if (accounts == null) {
 			throw new  UsernameNotFoundException("User " + username + " doesn't exist !");
 		}
 		
 		//EMPLOYEE - MANAGER
-		String role = account.getUserRole();
+		String role = accounts.getUserRole();
 		
 		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 		
@@ -40,7 +40,7 @@ public class MyDBAuthenticationService implements UserDetailsService{
 		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role); //ADD ROLE MANAGER-EMP
 		grantList.add(authority); // ADD VO CAI LIST
 		
-		UserDetails userDetails = (UserDetails) new User(account.getUserName(), account.getPassword(), grantList);
+		UserDetails userDetails = (UserDetails) new User(accounts.getUserName(), accounts.getPassword(), grantList);
 		return userDetails;
 	}
 

@@ -13,6 +13,9 @@
 <style type="text/css">
 <%@include file ="css/styles.css"%>
 </style>
+
+
+
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -27,13 +30,13 @@
 		
 		<security:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
 			<li><a href="${contextPath }/orderList">Order List</a></li> |
-			<li><a href="${contextPath }/listAccounts">Accounts List</a></li> | 
+ | 
 		</security:authorize>
 		
 		<li><a href="${contextPath }/shoppingCart">My Cart</a></li> |
 		<security:authorize access="hasRole('ROLE_MANAGER')"> 
 			<li><a href="${contextPath }/product">Create Product</a></li> |
-			<li><a href="${contextPath }/account">Create User</a> </li>
+			<li><a href="${contextPath}/accountList">User List</a> </li>
 		</security:authorize>
 		</ul>
 	</nav>

@@ -8,9 +8,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Index</title>
+<%-- 
 <style type="text/css">
 <%@include file ="css/styles.css"%>
 </style>
+--%>
+
+<link rel="stylesheet" type="text/css" href="${contextPath }/css/styles.css">
 </head>
 <body>
 	<jsp:include page="_header.jsp" />

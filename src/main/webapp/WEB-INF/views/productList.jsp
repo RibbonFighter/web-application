@@ -12,9 +12,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Poster</title>
+<%-- 
 <style type="text/css">
 <%@include file ="css/styles.css"%>
 </style>
+--%>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
 
 </head>
 <body>
@@ -50,7 +54,7 @@
 						href="${contextPath }/product?code=${productInfo.code}">Edit Product</a>
 					</li>
 					<li><a style="color: red"
-						href="${contextPath }/delete?code=${productInfo.code}">Delete</a>
+						href="${contextPath}/removeProduct?code=${productInfo.code}">Delete</a>
 					</li>
 				</security:authorize>
 

@@ -1,7 +1,8 @@
 package com.springmvc.controller;
 
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,21 +11,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.springmvc.dao.AccountDAO;
 import com.springmvc.dao.OrderDAO;
 import com.springmvc.dao.ProductDao;
 import com.springmvc.entity.Accounts;
+import com.springmvc.entity.Products;
+import com.springmvc.models.AccountInfo;
 import com.springmvc.models.OrderDetailInfo;
 import com.springmvc.models.OrderInfo;
 import com.springmvc.models.PaginationResult;
 import com.springmvc.models.ProductInfo;
-import com.springmvc.service.AccountsServiceImpl;
 import com.springmvc.validator.AccountsInfoValidator;
 import com.springmvc.validator.ProductInfoValidator;
 
@@ -38,10 +39,13 @@ public class AdminController {
 	private ProductDao productDAO;
 	
 	@Autowired
-	private AccountsServiceImpl accountServImpl;
+	private AccountDAO accountDAO;
+	
 	
 	@Autowired
 	private ProductInfoValidator productInfoValidator;
+	
+	@Autowired
 	private AccountsInfoValidator accountInfoValidator;
 	
 	
@@ -131,65 +135,89 @@ public class AdminController {
 			model.addAttribute("errorMessage",e.getMessage());
 			return "product";
 		}
-		return "redirect://productList";
+		return "redirect:/productList";
 	}
 	
 	//get DELETE PRODUCT
-	@GetMapping("/delete")
-	public String deleteProduct(@RequestParam("code") String code) {
-		productDAO.deleteProductByCode(code);
-		return "redirect://productList";
+	@RequestMapping({ "/removeProduct" })
+	public String deleteProductHandler(HttpServletRequest request, Model model,
+			@RequestParam(value = "code", defaultValue = "") String code) {
+		Products product = null;
+
+		if (code != null) {
+			product = productDAO.getProductByCode(code);
+		}
+
+		if (product != null) {
+			productDAO.deleteProductByCode(code);
+		}
+		return "redirect:/productList";
 	}
 	
 	
-	
-	
-	@RequestMapping("/accountsList")
-	public ModelAndView accountsList() {
-		ModelAndView mav = new ModelAndView("accountsList");
-		List<Accounts> listAccounts = accountServImpl.getAllAccounts();
-		mav.addObject("listAccounts", listAccounts);
-		return mav;
+	@RequestMapping(value = { "/accountList" }, method = RequestMethod.GET)
+	public String accountList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr) {
+		int page = 1;
+		try {
+			page = Integer.parseInt(pageStr);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		final int MAX_RESULT = 5;
+		final int MAX_NAVIGATION_PAGE = 10;
+		PaginationResult<AccountInfo> paginationAccountInfos = accountDAO.getAllAccountInfos(page, MAX_RESULT, MAX_NAVIGATION_PAGE);
+		model.addAttribute("paginationAccountInfos", paginationAccountInfos);
+		return "accountList";
 	}
 	
 	// go to create a new user
-		@RequestMapping("/account")
-		public String addNewAccountsForm(Map<String, Object> model) {
-			model.put("account", new Accounts());
-			
-			return "add-new-user-form";
+	@RequestMapping(value = { "/account" }, method = RequestMethod.GET)
+	public String account(Model model, @RequestParam(value = "userName", defaultValue = "") String userName) {
+		Accounts account = null;
+		if (userName != null) {
+			account = accountDAO.getAccountByUsername(userName);
 		}
+		if (account == null) {
+			account = new Accounts();
+		}
+		model.addAttribute("accountForm", account);
+		return "account";
+	}
 
 		// inserting and updating a new user method
-		@RequestMapping(value = "/insert", method = RequestMethod.POST)
-		public String insertUser(@ModelAttribute("accounts") Accounts accounts) {
-			accountServImpl.saveAccounts(accounts);
+	@RequestMapping(value = { "/account" }, method = RequestMethod.POST)
+	public String accountSave(Model model, @ModelAttribute("accountForm") @Validated AccountInfo accountInfo,
+			BindingResult result) {
+		accountInfoValidator.validate(accountInfo, result);
+		if (result.hasErrors()) {
+			return "account";
+		}
+		try {
+			accountDAO.saveAccountInfo(accountInfo);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "account";
+		}
+		return "redirect:/accountList";
+	}
 
-			return "redirect:/accounts/accountsList";
+	@RequestMapping({ "/deleteAccount" })
+	public String deleteAccountHandler(HttpServletRequest request, Model model,
+			@RequestParam(value = "userName", defaultValue = "") String userName) {
+		Accounts account = null;
+
+		if (userName != null) {
+			account = accountDAO.getAccountByUsername(userName);
 		}
 
-		/*
-		// go to editing form and edting a user
-		@RequestMapping("/edit")
-		public ModelAndView editUserForm(@RequestParam long user_id, Model model) {
-			// @ParamVariable("user_id") Long user_id
-			ModelAndView mav = new ModelAndView("edit-user-form");
-
-			User user = userServiceImpl.getUserById(user_id);
-			List<Role> listRoles = userServiceImpl.getRoles();
-
-			mav.addObject("user", user);
-			model.addAttribute("listRoles", listRoles);
-
-			return mav;
+		if (account != null) {
+			accountDAO.deleteAccountByUsername(userName);
 		}
-
-		@RequestMapping("/delete")
-		public String deleteUserById(@RequestParam long user_id) {
-			userServiceImpl.deleteUserById(user_id);
-
-			return "redirect:/user/list";
-		}
+		return "redirect:/accountsList";
+	}
+	
+	/*
 
 		@RequestMapping("/search")
 		public ModelAndView search(@RequestParam String keyword) {// lay dung ten name ben jsp moi chay

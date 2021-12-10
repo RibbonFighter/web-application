@@ -1,6 +1,10 @@
 package com.springmvc.dao;
 
 
+import java.util.List;
+
+import org.springframework.data.repository.query.Param;
+
 import com.springmvc.entity.Products;
 import com.springmvc.models.PaginationResult;
 import com.springmvc.models.ProductInfo;
@@ -17,6 +21,6 @@ public interface ProductDao {
 	
 	public boolean deleteProductByCode(String code);
 	
-
+	//public List<Products> search(@Param("keyword") String keyword);
 	
 }

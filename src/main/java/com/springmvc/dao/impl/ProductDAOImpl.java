@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.springmvc.dao.ProductDao;
@@ -57,9 +58,9 @@ public class ProductDAOImpl implements ProductDao {
 	public Products getProductByCode(String code) {
 
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "SELECT PRO FROM Products PRO WHERE PRO.code = :CODE";
+		String hql = "SELECT PRO FROM Products PRO WHERE PRO.code = :code";
 		Query<Products> query = session.createQuery(hql);
-		query.setParameter("CODE", code);
+		query.setParameter("code", code);
 		Products products = (Products) query.uniqueResult();
 		return products;
 	}
@@ -114,9 +115,9 @@ public class ProductDAOImpl implements ProductDao {
 	public boolean deleteProductByCode(String code) {
 		try {
 			Session session = sessionFactory.getCurrentSession();	
-			String hql = "DELETE FROM Products PRO WHERE PRO.code = :code";
+			String hql = "DELETE FROM Products PRO WHERE PRO.code = :code1";
 			Query query = session.createQuery(hql);
-			query.setParameter("CODE", code);
+			query.setParameter("code1", code);
 			query.executeUpdate();
 			return true;
 		} catch (Exception e) {
@@ -124,5 +125,21 @@ public class ProductDAOImpl implements ProductDao {
 		}
 		return false;
 	}
+
+	/*
+	@Override
+	public List<Products> search(String keyword) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "SELECT PRO FROM Products PRO WHERE PRO.code LIKE '%' || :keyword || '%'\"\r\n"
+				+ "			+ \"OR PRO.name LIKE '%' || :keyword || '%'\"\r\n"
+				+ "			+ \"OR PRO.price LIKE '%' || :keyword || '%'";
+		Query query = session.createQuery(hql);
+		query.setParameter("keyword", keyword);
+		List<Products> products = (List<Products>) query.uniqueResult();
+		return products;
+	}
+	*/
+	
+	
 
 }

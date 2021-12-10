@@ -16,13 +16,13 @@
 	<jsp:include page="_header.jsp" />
 	<jsp:include page="_menu.jsp" />
 
-	<fmt:setLocale value="en_US" scope="session" />
 
 	<div class="page_title">User List</div>
 	
 	<form method="get" action="search">
 			<input type="text" name="keyword" /> <input type="submit"
 				value="Search" />
+			<a href="${pageContext.request.contextPath}/account"><span>Add New Account</span></a>						
 	</form>
 	<div align="center">
 		<table border="1" padding="5">
@@ -33,18 +33,35 @@
 				<th>Roles</th>
 				<th>Action</th>
 			</tr>
-			<c:forEach items="${listAccounts }" var="account">
+			<c:forEach items="${paginationAccountInfos.list}" var="accountInfo">
 				<tr>
-					<td>${account.userName }</td>
-					<td style="visibility: hidden;">${account.password }</td>
-					<td>${account.enabled }</td>
-					<td>${account.userRole }</td>
-					<td><a href="edit?userName=${account.userName }">Edit</a>
-						&nbsp;&nbsp;&nbsp; <a href="delete?userName=${account.userName }">Delete</a>
+					<td>${accountInfo.userName }</td>
+					<td style="visibility: hidden;">${accountInfo.password }</td>
+					<td>${accountInfo.enabled }</td>
+					<td>${accountInfo.userRole }</td>
+					<td><a href="${contextPath}/account?userName=${accountInfo.userName }">Edit</a>
+	&nbsp;&nbsp;&nbsp;  <a href="${contextPath}/deleteAccount?userName=${accountInfo.userName }">Delete</a>
 					</td>
 				</tr>
 			</c:forEach>
 		</table>
+		
+		<c:if test="${paginationAccountInfos.totalPages > 1}">
+					<div class="pagination" style=" font-size: 20px;">
+
+						<c:forEach items="${paginationAccountInfos.navigationPages}"
+							var="page">
+							<c:if test="${page != -1}">
+								<a href="accountList?page=${page}" class="nav-item">${page}</a>
+
+							</c:if>
+							<c:if test="${page == -1}">
+								<span class="nav-item"> ... </span>
+							</c:if>
+						</c:forEach>
+
+					</div>
+				</c:if>
 	</div>
 	<jsp:include page="_footer.jsp" />
 </body>

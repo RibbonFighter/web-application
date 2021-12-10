@@ -24,7 +24,6 @@ import com.springmvc.models.CartInfo;
 import com.springmvc.models.CustomerInfo;
 import com.springmvc.models.PaginationResult;
 import com.springmvc.models.ProductInfo;
-import com.springmvc.repository.ProductsRepository;
 import com.springmvc.utils.Utils;
 import com.springmvc.validator.CustomerInfoValidator;
 
@@ -37,8 +36,7 @@ public class MainController {
 	@Autowired
 	private OrderDAO orderoDAO;
 	
-	@Autowired
-	private ProductsRepository productsRepo;
+
 
 	@Autowired
 	private CustomerInfoValidator customerInfoValidator;
@@ -225,14 +223,29 @@ public class MainController {
 		return "shoppingCartFinalize";
 	}
 	
+	/*
+	@RequestMapping({ "/search" })
+	public String searchProducts(HttpServletRequest request, Model model) {
+		
+		try {
+			productDAO.search(keyword)
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	*/
+	
+	/*
 	@RequestMapping("/search")
 	public ModelAndView search(@RequestParam String keyword) {
 		ModelAndView mav = new ModelAndView("product-search-result");
 
-		List<Products> result = productsRepo.search(keyword);
+		List<Products> result = productServiceImpl.search(keyword);
 		mav.addObject("result", result);
 
 		return mav;
 	}
+	*/
+	
 
 }
